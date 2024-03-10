@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>QR Converter</title>
+<style>
+html {
+  height: 100%;
+}
+body {
+  margin: 0;
+  padding: 10;
+  font-family: sans-serif;
+  background: linear-gradient(#141e30, #243b55);
+}
+
+.login-box {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 400px;
+  padding: 70px;
+  transform: translate(-50%, -50%);
+  background: rgba(0,0,0,.5);
+  box-sizing: border-box;
+  box-shadow: 0 15px 25px rgba(0,0,0,.6);
+  border-radius: 10px;
+}
+
+.login-box h2 {
+  margin: 0 0 30px;
+  padding: 10px;
+  color: #fff;
+  text-align: center;
+}
+
+.custom-box {
+  position: relative;
+  width: 100%;
+  padding: 10px;
+}
+
+.custom-box .container-fluid {
+  margin: 0 auto;
+}
+
+.custom-box .form-horizontal {
+  width: 100%;
+}
+
+.custom-box .form-group {
+  margin-bottom: 15px;
+}
+
+.custom-box .form-group label {
+  color: #fff;
+}
+
+.custom-box .form-control {
+  width: 100%;
+  padding: 11px;
+  font-size: 16px;
+  color: #fff;
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid #fff;
+  border-radius: 0;
+  outline: none;
+}
+
+.custom-box .btn {
+  padding: 6px 10px;
+  font-size: 14px;
+  text-transform: uppercase;
+  background-color: #03e9f4;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  box-shadow: 0 0 5px #03e9f4,
+              0 0 15px #03e9f4,
+              0 0 5px #03e9f4,
+              0 0 10px #03e9f4;
+  
+}
+
+.custom-box .btn:hover {
+  background-color: #03c6e9;
+}
+
+.custom-box .text-center {
+  text-align: center;
+}
+
+.custom-box .qr-code {
+  max-width: 100%;
+  padding: 30px;
+  height: auto;
+}
+</style>
+</head>
+<body>
+<div class="login-box">
+  <h2>Qr-Generator</h2>
+  <div class="custom-box">
+    <div class="container-fluid">
+      <div class="form-horizontal">
+       <div class="form-group">
+  <label class="control-label col-sm-2" for="content">Input Text :</label>
+  <div class="col-sm-10">
+    <input type="text" maxlength="150" class="form-control box-shape-input" id="content" placeholder="Enter Text">
+  </div>
+</div>
+
+
+<center>
+        <div class="form-group">
+          <div class="col-sm-offset-2 col-sm-10">
+            <button type="button" class="btn btn-default" id="generate">Generate QR</button>
+          </div>
+        </div>
+</center>
+        <div class="text-center"> 
+          <img src="" class="qr-code img-thumbnail img-responsive" />
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+<script>
+  function htmlEncode(value) {
+    return $('<div/>').text(value).html();
+  }
+
+  $(function () { 
+    // Trigger QR code generation on page load with default text
+    generateQR('VIJAYA KUMAR AN');
+
+    $('#generate').click(function () { 
+      // Generate QR code when button is clicked
+      generateQR($('#content').val());
+    });
+
+    function generateQR(content) {
+      let finalURL = 'https://chart.googleapis.com/chart?cht=qr&chl=' + htmlEncode(content) + '&chs=160x160&chld=L|0';
+      $('.qr-code').attr('src', finalURL);
+    }
+  });
+</script>
+</body>
+</html>
